@@ -26,11 +26,20 @@ Once the environment is installed, we can do ancestry inference. The required sa
 
 With the python environment activated, ese the following command to to use the pretrained model on a input file called `test_samples.csv`:
 
-`python infer_ancestry.py -i StratGenomEthnicTestsamples.csv -o predicted_ancestries.csv`
+`python infer_ancestry.py -i test_samples.csv -o predicted_ancestries.csv`
 
 The output file will contain one ancestry prediction for each sample in the `test_samples.csv` file. Ancestries are coded like: 
 
 `EUR`=European, `AFR`=African, `EAS`=East Asian, `SAS`=South Asian, `AMR`=Admixed American
+
+## Running `infer_ancestry.py` in another directory
+
+If running `infer_ancestry.py` outside of the repo, the absolute paths to several files must be specified as commandline arguments. These files store info on the trained model and variants. For example, assuming I cloned the repo into a directory called `~/repos`, I would need to add the following paths:
+
+`python infer_ancestry.py -i test_samples.csv -o predicted_ancestries.csv 
+-c ~/repos/aims_inference/data/ancestry_svc_clf.pkl 
+-l ~/repos/aims_inference/data/ancestry_label_encoder.pkl 
+-a aim_variants.pkl`
 
 ## Generating a confusion matrix of ethnicity and ancestry
 
@@ -43,5 +52,19 @@ The results look like this:
 ![confusion matrix](https://github.com/invitae/aims_inference/blob/main/test_samples.png)
 
 ## Retraining a model on a new set of AIMs
+
+Retraining a model is slightly more involved, as it requires downloading the 1000 genome projects dataset. To make this step as quick as possible, we download a highly compressed 'tree sequence' representation of this dataset using the provided script:
+
+`sh download_1kg_data.sh`
+
+Then, assuming we have a list of variants with rsid, chromosome and position columns (formatted like `data/kidd_et_al_aims.txt`, as white-spaced separated columns, the other 'Fst' column is not necesary), we can retrain the model:
+
+`python train.py -i aims_file.txt`
+
+The training will require several steps. First, the genotypes for the 1000 genomes projects will be extracted for all variants in `aims_file.txt`. This step can take 20-30 minutes. Additionally, the ancestry labels for each individual will be extracted. Intermediate files called `genotype_matrix.npz`, `population_labels.pkl`, `aim_variants.pkl` will be produced in the `data` directory. 
+
+Next, a support vector classifier (SVC) will be trained to map genotype to ancestry. This step is much faster (only a few seconds). Several plots will be produced from this step, and several output files. 
+
+The generated files that enable this trained model to be run with `infer_ancestry.py` are: `ancestry_svc_clf.pkl`, `ancestry_label_encoder.pkl`, and `aim_variants.pkl` 
 
 
