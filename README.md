@@ -45,7 +45,7 @@ If running `infer_ancestry.py` outside of the repo, the absolute paths to severa
 
 If self-reported ethnicities are included (appended to the sample name), we can produce a confusion matrix of the results, relating self-reported ethnicity to predicted ancestry: 
 
-`python infer_ancestry.py -i StratGenomEthnicTestsamples.csv -o predicted_ancestries.csv -cm`
+`python infer_ancestry.py -i test_samples.csv -o predicted_ancestries.csv -cm`
 
 ## Retraining a model on a new set of AIMs
 
