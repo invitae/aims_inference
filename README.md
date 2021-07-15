@@ -34,7 +34,7 @@ The output file will contain one ancestry prediction for each sample in the `tes
 
 ## Generating a confusion matrix of ethnicity and ancestry
 
-If self-reported ethnicities are included and appended to the path, we can produce a confusion matrix of the results, relating self-reported ethnicity to predicted ancestry: 
+If self-reported ethnicities are included (appended to the sample name), we can produce a confusion matrix of the results, relating self-reported ethnicity to predicted ancestry: 
 
 `python infer_ancestry.py -i StratGenomEthnicTestsamples.csv -o predicted_ancestries.csv -cm`
 
