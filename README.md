@@ -47,10 +47,6 @@ If self-reported ethnicities are included (appended to the sample name), we can 
 
 `python infer_ancestry.py -i StratGenomEthnicTestsamples.csv -o predicted_ancestries.csv -cm`
 
-The results look like this:
-
-![confusion matrix](https://github.com/invitae/aims_inference/blob/main/test_samples.png)
-
 ## Retraining a model on a new set of AIMs
 
 Retraining a model is slightly more involved, as it requires downloading the 1000 genome projects dataset. To make this step as quick as possible, we download a highly compressed 'tree sequence' representation of this dataset using the provided script:
