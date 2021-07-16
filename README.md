@@ -24,7 +24,7 @@ Now, create and activate a new python3 environment then install the required pac
 
 Once the environment is installed, we can do ancestry inference. The required sample input file is in CSV format. The first column, `sample`, gives the sample name. If there is a self-reported ethnicity associated with the sample, it should be included in the sample name like: `[sample-name]_[ethnicity]`. The subsequent columns are labeled with SNP names (ex. `rs3823159`). These should be the same SNPs that the model was trained on. The pre-trained model SNPs are given in `data/kidd_et_al_aims.txt` and were derived from [this paper](https://pubmed.ncbi.nlm.nih.gov/24508742/) by the Kidd lab at Yale. Each genotype should be encoded by a string of alleles like: `C/C`. 
 
-With the python environment activated, ese the following command to to use the pretrained model on a input file called `test_samples.csv`:
+With the python environment activated, use the following command to to use the pretrained model on a input file called `test_samples.csv`:
 
 `python infer_ancestry.py -i test_samples.csv -o predicted_ancestries.csv`
 
